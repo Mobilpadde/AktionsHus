@@ -11,7 +11,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            Socketeer.Client c = new Socketeer.Client(5000);
+            
         }
     }
 }
