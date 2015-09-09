@@ -25,16 +25,14 @@ namespace Socketeer
             reader = new StreamReader(stream);
             writer = new StreamWriter(stream) { AutoFlush = true };
 
-            Thread readerThread = new Thread(() => ReaderThread(reader));
-            Thread writerThread = new Thread(() => WriterThread(writer));
+            Thread rThread = new Thread(() => readerThread(reader));
+            Thread wThread = new Thread(() => writerThread(writer));
 
-            readerThread.Start();
-            writerThread.Start();
-
-            Console.Read();
+            rThread.Start();
+            wThread.Start();
         }
 
-        public void ReaderThread(StreamReader reader)
+        private void readerThread(StreamReader reader)
         {
             while (running)
             {
@@ -54,7 +52,7 @@ namespace Socketeer
             }
         }
 
-        public void WriterThread(StreamWriter writer)
+        private void writerThread(StreamWriter writer)
         {
             while (running)
             {
