@@ -11,7 +11,12 @@ namespace Client
     {
         static void Main(string[] args)
         {
+<<<<<<< HEAD
             
+=======
+            Socketeer.Client c = new Socketeer.Client(5000);
+            Console.Read();
+>>>>>>> origin/master
         }
     }
 }
