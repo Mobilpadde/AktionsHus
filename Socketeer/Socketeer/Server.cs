@@ -18,19 +18,18 @@ namespace Socketeer
             listener.Start();
             Console.WriteLine("SERVEREN ER OPPE BITCHES!");
 
+            Socket clientSocket = listener.AcceptSocket();
+            Console.WriteLine("CLIENTEN ER PÅ, YEAH!");
+            NetworkStream stream = new NetworkStream(clientSocket);
+            StreamWriter writer = new StreamWriter(stream);
+            StreamReader reader = new StreamReader(stream);
+            writer.AutoFlush = true;
+
             while(true)
             {
-                Socket clientSocket = listener.AcceptSocket();
-                Console.WriteLine("CLIENTEN ER PÅ, YEAH!");
-                NetworkStream stream = new NetworkStream(clientSocket);
-                StreamWriter writer = new StreamWriter(stream);
-                StreamReader reader = new StreamReader(stream);
-                writer.AutoFlush = true;
-
-                string data = reader.ReadLine();
                 writer.WriteLine("klar");
-
-                
+                string data = reader.ReadLine();
+                writer.WriteLine(data);
             }
         }
        
