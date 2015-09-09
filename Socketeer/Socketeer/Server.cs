@@ -26,6 +26,11 @@ namespace Socketeer
                 StreamWriter writer = new StreamWriter(stream);
                 StreamReader reader = new StreamReader(stream);
                 writer.AutoFlush = true;
+
+                string data = reader.ReadLine();
+                writer.WriteLine("klar");
+
+                
             }
         }
        
