@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Socketeer
@@ -18,18 +19,13 @@ namespace Socketeer
             listener.Start();
             Console.WriteLine("SERVEREN ER OPPE BITCHES!");
 
-            Socket clientSocket = listener.AcceptSocket();
-            Console.WriteLine("CLIENTEN ER PÅ, YEAH!");
-            NetworkStream stream = new NetworkStream(clientSocket);
-            StreamWriter writer = new StreamWriter(stream);
-            StreamReader reader = new StreamReader(stream);
-            writer.AutoFlush = true;
-
             while(true)
             {
-                writer.WriteLine("klar");
-                string data = reader.ReadLine();
-                writer.WriteLine(data);
+                Socket client = listener.AcceptSocket();
+                Console.WriteLine("CLIENTEN ER PÅ BITCHESSSSS!");
+
+                Thread t = new Thread(() => new UserHandler(client));
+                t.Start();
             }
         }
        
