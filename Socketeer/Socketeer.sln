@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Socketeer", "Socketeer\Socketeer.csproj", "{65F45C21-20F7-443E-904D-B1A36F172C7E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{6D38D441-BBC4-4C75-B043-993D24A64ED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{2CAD0684-3EA9-4E0A-AC26-43948D068D06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{65F45C21-20F7-443E-904D-B1A36F172C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F45C21-20F7-443E-904D-B1A36F172C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F45C21-20F7-443E-904D-B1A36F172C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D38D441-BBC4-4C75-B043-993D24A64ED7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D38D441-BBC4-4C75-B043-993D24A64ED7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D38D441-BBC4-4C75-B043-993D24A64ED7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D38D441-BBC4-4C75-B043-993D24A64ED7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CAD0684-3EA9-4E0A-AC26-43948D068D06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CAD0684-3EA9-4E0A-AC26-43948D068D06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CAD0684-3EA9-4E0A-AC26-43948D068D06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CAD0684-3EA9-4E0A-AC26-43948D068D06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
