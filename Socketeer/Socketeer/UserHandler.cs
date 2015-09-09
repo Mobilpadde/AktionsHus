@@ -19,10 +19,11 @@ namespace Socketeer
 
             try
             {
+                writer.WriteLine("Klar...");
+
                 bool done = false;
                 while(!done)
                 {
-                    writer.WriteLine("Klar motherfucker!");
                     writer.WriteLine(reader.ReadLine());
                 }
             }
