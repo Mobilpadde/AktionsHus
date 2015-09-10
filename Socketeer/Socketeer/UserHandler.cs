@@ -19,7 +19,7 @@ namespace Socketeer
 
             try
             {
-                writer.WriteLine("Klar...");
+                writer.WriteLine("Vi er klar BITHCESSSS!!");
 
                 bool done = false;
                 while(!done)
