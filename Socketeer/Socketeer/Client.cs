@@ -30,16 +30,6 @@ namespace Socketeer
 
             rThread.Start();
             wThread.Start();
-
-            /*string text;
-            while (running)
-            {
-                text = reader.ReadLine();
-                Console.WriteLine(text);
-
-                text = Console.ReadLine();
-                writer.WriteLine(text);
-            }*/
         }
 
         private void readerThread(StreamReader reader)
