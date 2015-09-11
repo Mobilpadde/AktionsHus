@@ -37,7 +37,7 @@ namespace Socketeer
             while (running)
             {
                 string data = reader.ReadLine();
-                if (data.Trim() != "")
+                if (data != null && data.Trim() != "")
                 {
                     switch (data)
                     {
@@ -59,7 +59,14 @@ namespace Socketeer
                 string data = Console.ReadLine();
                 if (data.Trim() != "")
                 {
-                    writer.WriteLine(data);
+                    switch (data)
+                    {
+                        case "":
+                            break;
+                        default:
+                            writer.WriteLine(data);
+                            break;
+                    }
                 }
             }
         }

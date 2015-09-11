@@ -12,22 +12,54 @@ namespace Socketeer
 {
     public class Server
     {
-        public Server(int port)
+        private TcpListener listener;
+        private bool run;
+        private List<UserHandler> uHandlers;
+        private List<TcpClient> clients;
+        private List<Product> products;
+
+        public Server(int port, List<Product> products)
         {
             IPAddress ip = IPAddress.Parse("127.0.0.1");
-            TcpListener listener = new TcpListener(ip, port);
+            listener = new TcpListener(ip, port);
+            clients = new List<TcpClient>();
+            this.products = products;
+        }
+
+        public void Broadcast()
+        {
+            Thread.Sleep(15000);
+            Console.WriteLine("Broadcast start");
+            clients.ForEach(c =>
+            {
+                StreamWriter writer = new StreamWriter(c.GetStream()) { AutoFlush = true };
+                writer.WriteLine("Test");
+                Console.WriteLine("Broadcasting...");
+            });
+            Console.WriteLine("Broadcast done");
+        }
+
+        public void Start()
+        {
             listener.Start();
             Console.WriteLine("SERVEREN ER OPPE BITCHES!");
-
-            while(true)
+            
+            run = true;
+            while (run)
             {
-                Socket client = listener.AcceptSocket();
+                TcpClient client = listener.AcceptTcpClient();
                 Console.WriteLine("CLIENTEN ER PÅ BITCHESSSSS!");
 
-                Thread t = new Thread(() => new UserHandler(client));
+                clients.Add(client);
+
+                Thread t = new Thread(() => new UserHandler(client, products));
                 t.Start();
             }
         }
-       
+
+        public void Stop()
+        {
+            run = false;
+        }
     }
 }

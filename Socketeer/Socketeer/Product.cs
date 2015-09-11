@@ -5,9 +5,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Server
+namespace Socketeer
 {
-    class Product
+    public class Product
     {
         public string Name { get; set; }
 
