@@ -26,17 +26,16 @@ namespace Socketeer
             this.products = products;
         }
 
-        public void Broadcast()
+        public void Broadcast(string text, TcpClient excludeClient)
         {
-            Thread.Sleep(15000);
-            Console.WriteLine("Broadcast start");
             clients.ForEach(c =>
             {
-                StreamWriter writer = new StreamWriter(c.GetStream()) { AutoFlush = true };
-                writer.WriteLine("Test");
-                Console.WriteLine("Broadcasting...");
+                if (c != excludeClient)
+                {
+                    StreamWriter writer = new StreamWriter(c.GetStream()) { AutoFlush = true };
+                    writer.WriteLine(text);   
+                }
             });
-            Console.WriteLine("Broadcast done");
         }
 
         public void Start()
@@ -54,6 +53,8 @@ namespace Socketeer
 
                 Thread t = new Thread(() => new UserHandler(client, products));
                 t.Start();
+
+
             }
         }
 

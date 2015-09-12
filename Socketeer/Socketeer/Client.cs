@@ -25,6 +25,8 @@ namespace Socketeer
             reader = new StreamReader(stream);
             writer = new StreamWriter(stream) { AutoFlush = true };
 
+            Console.WriteLine("Du er " + connection.Client.RemoteEndPoint);
+
             Thread rThread = new Thread(() => readerThread(reader));
             Thread wThread = new Thread(() => writerThread(writer));
 
