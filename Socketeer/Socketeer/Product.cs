@@ -30,8 +30,8 @@ namespace Socketeer
         //Her oprettes et event for delegaten HammerDelegate
         public event HammerDelegetae HammerEvent;
 
-        //Der oprettes et array af threads der holder styr på hammerslag, for de forskellige auktioner
-        private Thread[] hammerThreads;
+        // Her deklarere vi en hammerThread af typen Thread
+        private Thread hammerThread;
 
         //En constructor der tager imod 4 inputs: 3 strings og en double
         public Product(string name, string productType, double minPrice, string id)
@@ -42,13 +42,8 @@ namespace Socketeer
             HighestPrice = minPrice;
             Id = id;
 
-            //Tilføjer 3 tråde til vores array af threads
-            hammerThreads = new Thread[]
-            {
-                new Thread(() => {}),
-                new Thread(() => {}),
-                new Thread(() => {})
-            };
+            // Her instiansere vi vores hammerThread
+            hammerThread = new Thread(() => {});
         }
         
         //Metode der overskriver bidder med highest bidder.
@@ -70,29 +65,20 @@ namespace Socketeer
             DateTime d = DateTime.Now;
             //Sluttidspunktet er den aktuelle tid + 18 sekunder
             EndTime = d.AddSeconds(18);
-            // Her konvertes hammetreads array'et til en liste, og lukker hver tråd t i listen.
-            hammerThreads.ToList().ForEach(t => t.Abort());
 
-            
-            hammerThreads[0] = new Thread(() =>
+            hammerThread.Abort();
+            hammerThread = new Thread(() =>
             {
                 Thread.Sleep(10000);
                 if (HammerEvent != null) HammerEvent(1, HighestBidder);
-            });
 
-            hammerThreads[1] = new Thread(() =>
-            {
-                Thread.Sleep(15000);
+                Thread.Sleep(5000);
                 if (HammerEvent != null) HammerEvent(2, HighestBidder);
-            });
 
-            hammerThreads[2] = new Thread(() =>
-            {
-                Thread.Sleep(18000);
+                Thread.Sleep(3000);
                 if (HammerEvent != null) HammerEvent(3, HighestBidder);
             });
-
-            hammerThreads.ToList().ForEach(t => t.Start());
+            hammerThread.Start();
         }
     }
 }
