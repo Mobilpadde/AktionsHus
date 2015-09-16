@@ -65,19 +65,23 @@ namespace Socketeer
             DateTime d = DateTime.Now;
             //Sluttidspunktet er den aktuelle tid + 18 sekunder
             EndTime = d.AddSeconds(18);
-
+            //Stopper alle threads i array'et
             hammerThread.Abort();
+            
+            //Opretter en ny tråd
             hammerThread = new Thread(() =>
             {
+                //Tråden sover i 10 sekunder, og broadcaster så 1 og det højestebud
                 Thread.Sleep(10000);
                 if (HammerEvent != null) HammerEvent(1, HighestBidder);
-
+                //Tråden sover 5 sekunder, og broadcaster så 2 og højestebud
                 Thread.Sleep(5000);
                 if (HammerEvent != null) HammerEvent(2, HighestBidder);
-
+                //Tråden sover 3 sekunder, og broadcaster 
                 Thread.Sleep(3000);
                 if (HammerEvent != null) HammerEvent(3, HighestBidder);
             });
+            //Starter hammertread arrayet 
             hammerThread.Start();
         }
     }
