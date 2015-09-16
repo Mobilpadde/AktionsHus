@@ -87,7 +87,7 @@ namespace Socketeer
                     }
                     else
                     {
-                        writer.WriteLine("Nathin'");
+                        writer.WriteLine("Kommandoen {0} eksisterer ikke", data.Trim());
                     }
                 }
             }
