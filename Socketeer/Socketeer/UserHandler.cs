@@ -133,8 +133,12 @@ namespace Socketeer
         {
             //en writeline der siger hvor i hammerslaget vi er nået til.
             writer.WriteLine("Hammerslag: " + i);
-            //hvis i er = 3, så har man ikke flere chancer for at byde, derfor er varen solgt til vores string bidder...
-            if (i == 3) Console.WriteLine("Solgt til " + bidder);
+            //hvis i er = 3, så har man ikke flere chancer for at byde, derfor er varen solgt til vores højste byder...
+            if (i == 3)
+            {
+                Console.WriteLine("Solgt til " + bidder);
+                writer.WriteLine("Solgt til " + bidder);
+            }
         }
     }
 }

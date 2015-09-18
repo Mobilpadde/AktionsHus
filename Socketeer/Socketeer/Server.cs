@@ -64,8 +64,6 @@ namespace Socketeer
                 //Laver en ny tråd til hver klient
                 Thread t = new Thread(() => new UserHandler(client, products));
                 t.Start();
-
-
             }
         }
         //Metode der sætter run til false, så løkkerne stopper.

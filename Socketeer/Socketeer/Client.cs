@@ -15,6 +15,7 @@ namespace Socketeer
 
         private StreamReader reader;
         private StreamWriter writer;
+        private TcpClient connection;
 
         //Constructor, med inputtet port, som er integer.
         public Client(int port)
@@ -24,7 +25,7 @@ namespace Socketeer
             
             //opretter en TcpClient, der har ip-adresse, som string og vores tidligere port
             //Clienten opretter forbindelse til vores server.
-            TcpClient connection = new TcpClient("127.0.0.1", port);
+            connection = new TcpClient("127.0.0.1", port);
             //Sørger for at der kan skrives og læses i mellem client og server
             NetworkStream stream = connection.GetStream();
             //vores læser
@@ -49,7 +50,7 @@ namespace Socketeer
         private void readerThread(StreamReader reader)
         {
             //Så længe at running er true, skal løkken køre
-            while (running)
+            while (connection.Connected)
             {
                 // Opretter en string der aflæser fra streamen.
                 string data = reader.ReadLine();
@@ -74,7 +75,7 @@ namespace Socketeer
         private void writerThread(StreamWriter writer)
         {
             //Så længe at running er true, skal løkken køre
-            while (running)
+            while (connection.Connected)
             {
                 // Opretter en string der aflæser fra streamen.
                 string data = Console.ReadLine();

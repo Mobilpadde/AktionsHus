@@ -25,6 +25,10 @@ namespace Socketeer
 
         public DateTime EndTime { get; private set; }
 
+        private object bidderLock;
+        private object priceLock;
+        private object timeLock;
+
         //opretter et delegate, der tager imod inputtene integer i og stringen bidder
         public delegate void HammerDelegetae(int i, string bidder);
         //Her oprettes et event for delegaten HammerDelegate
@@ -42,47 +46,62 @@ namespace Socketeer
             HighestPrice = minPrice;
             Id = id;
 
-            // Her instiansere vi vores hammerThread
+            bidderLock = new object();
+            priceLock = new object();
+            timeLock = new object();
+
+            // Her instansere vi vores hammerThread
             hammerThread = new Thread(() => {});
         }
         
         //Metode der overskriver bidder med highest bidder.
         public void SetBidder(string bidder)
         {
-            HighestBidder = bidder;
+            // Her bruger vi en lock
+            lock (bidderLock)
+            {
+                HighestBidder = bidder;   
+            }
         }
 
         //Sætter prisen til Highestprice
         public void SetPrice(double price)
         {
+            // Her bruger vi Monitor
+            Monitor.Enter(priceLock);
             HighestPrice = price;
+            Monitor.Exit(priceLock);
         }
         
         //Metode til at sætte auktionen på tælling
         public void SetTime()
         {
-            //Laver en Datetime variabel, der tager den aktuelle tid
-            DateTime d = DateTime.Now;
-            //Sluttidspunktet er den aktuelle tid + 18 sekunder
-            EndTime = d.AddSeconds(18);
-            //Stopper alle threads i array'et
-            hammerThread.Abort();
-            
-            //Opretter en ny tråd
-            hammerThread = new Thread(() =>
+            // Her bruger vi en lock
+            lock (timeLock)
             {
-                //Tråden sover i 10 sekunder, og broadcaster så 1 og det højestebud
-                Thread.Sleep(10000);
-                if (HammerEvent != null) HammerEvent(1, HighestBidder);
-                //Tråden sover 5 sekunder, og broadcaster så 2 og højestebud
-                Thread.Sleep(5000);
-                if (HammerEvent != null) HammerEvent(2, HighestBidder);
-                //Tråden sover 3 sekunder, og broadcaster 
-                Thread.Sleep(3000);
-                if (HammerEvent != null) HammerEvent(3, HighestBidder);
-            });
-            //Starter hammertread arrayet 
-            hammerThread.Start();
+                //Laver en Datetime variabel, der tager den aktuelle tid
+                DateTime d = DateTime.Now;
+                //Sluttidspunktet er den aktuelle tid + 18 sekunder
+                EndTime = d.AddSeconds(18);
+                //Stopper alle threads i array'et
+                hammerThread.Abort();
+
+                //Opretter en ny tråd
+                hammerThread = new Thread(() =>
+                {
+                    //Tråden sover i 10 sekunder, og broadcaster så 1 og det højestebud
+                    Thread.Sleep(10000);
+                    if (HammerEvent != null) HammerEvent(1, HighestBidder);
+                    //Tråden sover 5 sekunder, og broadcaster så 2 og højestebud
+                    Thread.Sleep(5000);
+                    if (HammerEvent != null) HammerEvent(2, HighestBidder);
+                    //Tråden sover 3 sekunder, og broadcaster 
+                    Thread.Sleep(3000);
+                    if (HammerEvent != null) HammerEvent(3, HighestBidder);
+                });
+                //Starter hammertread arrayet 
+                hammerThread.Start();
+            }
         }
     }
 }
