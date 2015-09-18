@@ -49,7 +49,7 @@ namespace Socketeer
             //starter listener
             listener.Start();
             //Når serveren er startet viser programmet linjen
-            Console.WriteLine("SERVEREN ER OPPE BITCHES!");
+            Console.WriteLine("SERVEREN ER OPPE!");
             //Boolsk udtryk der er = true
             run = true;
             //While løkke, der kører så længe run er true
@@ -58,7 +58,7 @@ namespace Socketeer
                 //Lytter efter klienter, hvis der er nogen bliver de accepteret
                 TcpClient client = listener.AcceptTcpClient();
                 //Meddeler at der er en klient, der er tilsluttet
-                Console.WriteLine("CLIENTEN ER PÅ BITCHESSSSS!");
+                Console.WriteLine("EN CLIENT ER TILSLUTTET!");
                 //Tilføjer klienten
                 clients.Add(client);
                 //Laver en ny tråd til hver klient
